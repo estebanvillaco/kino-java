@@ -78,6 +78,20 @@ java -cp "postgresql-42.7.3.jar:bcrypt-0.10.2.jar:bytes-1.0.0.jar:." Main
 
 ---
 
+## 👥 Opprette brukere og teste funksjonalitet
+
+1. **Start programmet via `Main.java` først** for å:
+   - Opprette nye brukere (planlegger eller betjent)
+   - Endre PIN-kode
+   - Teste innlogging
+
+2. **Etter at du har opprettet brukere**, kjør `HovedMeny.java` for å:
+   - Logge inn som kunde eller ansatt
+   - Bruke betjent- og planleggerverktøyene
+   - Reservere billetter eller administrere visninger
+
+---
+
 ## 🚀 Ferdig!
 
 Du kan nå logge inn og bruke kino-appen med både kunde- og ansatt-funksjoner 🎟️
