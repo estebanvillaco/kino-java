@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FilmDAO {
 
-    // ✅ Registrer ny film i databasen
+    //  Registrer ny film i databasen
     public boolean registrerFilm(String tittel, String sjanger, int lengde) {
         String sql = "INSERT INTO kino.tblfilm (f_filmnavn, f_sjanger, f_lengde) VALUES (?, ?, ?)";
         try (Connection conn = Database.getConnection();
@@ -22,12 +22,12 @@ public class FilmDAO {
             return stmt.executeUpdate() == 1;
 
         } catch (SQLException e) {
-            System.err.println("❌ Feil ved registrering av film: " + e.getMessage());
+            System.err.println("Feil ved registrering av film: " + e.getMessage());
         }
         return false;
     }
 
-    // ✅ Henter alle filmer fra databasen
+    //  Henter alle filmer fra databasen
     public List<Film> hentAlleFilmer() {
         List<Film> filmer = new ArrayList<>();
         String sql = "SELECT f_filmnr, f_filmnavn FROM kino.tblfilm";
@@ -43,13 +43,13 @@ public class FilmDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Feil ved henting av filmer: " + e.getMessage());
+            System.err.println("Feil ved henting av filmer: " + e.getMessage());
         }
 
         return filmer;
     }
 
-    // ✅ Hent én film basert på filmnummer
+    //  Hent én film basert på filmnummer
     public Film hentFilm(int filmnr) {
         String sql = "SELECT f_filmnr, f_filmnavn FROM kino.tblfilm WHERE f_filmnr = ?";
 
@@ -68,7 +68,7 @@ public class FilmDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Feil ved henting av film: " + e.getMessage());
+            System.err.println("Feil ved henting av film: " + e.getMessage());
         }
 
         return null;

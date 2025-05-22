@@ -14,6 +14,7 @@ public class HovedMeny {
             System.out.println("\n HOVEDMENY - KINOSYSTEM");
             System.out.println("1. Kunde – reserver billett");
             System.out.println("2. Ansatt – administrasjon");
+            System.out.println("3. Endre PIN-Kode");
             System.out.println("0. Avslutt");
             System.out.print("Velg et alternativ: ");
             valg = scanner.nextInt();
@@ -35,19 +36,41 @@ public class HovedMeny {
                         String rolle = loginDAO.hentRolle(brukernavn);
                         switch (rolle) {
                             case "betjent" -> {
-                                System.out.println("✅ Logget inn som betjent.");
+                                System.out.println("Logget inn som betjent.");
                                 app.BetjentMeny.start(scanner);
                             }
                             case "planlegger" -> {
-                                System.out.println("✅ Logget inn som planlegger.");
+                                System.out.println("Logget inn som planlegger.");
                                 app.PlanleggerMeny.start(scanner);  // Forutsetter at denne klassen finnes
                             }
-                            default -> System.out.println("⚠️ Ugyldig rolle. Tilgang nektes.");
+                            default -> System.out.println("️Ugyldig rolle. Tilgang nektes.");
                         }
                     } else {
-                        System.out.println("❌ Feil brukernavn eller PIN.");
+                        System.out.println("Feil brukernavn eller PIN.");
                     }
                 }
+
+                case 3 -> {
+                    System.out.println("\n== Endre PIN-kode ==");
+                    System.out.print("Brukernavn: ");
+                    String bruker = scanner.nextLine();
+                    System.out.print("Nåværende PIN: ");
+                    String gammelPin = scanner.nextLine();
+
+                    if (loginDAO.login(bruker, gammelPin)) {
+                        System.out.print("Ny PIN: ");
+                        String nyPin = scanner.nextLine();
+
+                        if (loginDAO.oppdaterPin(bruker, nyPin)) {
+                            System.out.println("PIN-kode oppdatert.");
+                        } else {
+                            System.out.println("Klarte ikke å oppdatere PIN.");
+                        }
+                    } else {
+                        System.out.println("Feil brukernavn eller PIN.");
+                    }
+                }
+
                 case 0 -> System.out.println("Avslutter programmet...");
                 default -> System.out.println("Ugyldig valg. Prøv igjen.");
             }

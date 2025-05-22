@@ -16,7 +16,7 @@ public class BestillingService {
     private final PlassBillettDAO plassBillettDAO = new PlassBillettDAO();
 
     public void startBestilling(Scanner scanner, boolean betalMedEnGang) {
-        System.out.println("📅 Tilgjengelige visninger:");
+        System.out.println("Tilgjengelige visninger:");
         List<Visning> visninger = visningDAO.hentAlleVisninger();
 
         for (Visning v : visninger) {
@@ -32,9 +32,9 @@ public class BestillingService {
         Visning valgt = visningDAO.hentVisning(visningsnr);
 
         List<Plass> ledigePlasser = plassDAO.hentLedigePlasser(visningsnr);
-        System.out.println("🪑 Ledige plasser:");
+        System.out.println("Ledige plasser:");
         for (Plass p : ledigePlasser) {
-            System.out.println("Rad: " + p.getRadnr() + " Sete: " + p.getSetenr());
+            System.out.println("Rad: " + p.getRadnr() + "Sete: " + p.getSetenr());
         }
 
         System.out.print("Hvor mange billetter ønsker du? ");
@@ -58,10 +58,10 @@ public class BestillingService {
             boolean okPlass = plassBillettDAO.leggTilPlassBillett(pb);
 
             if (okBillett && okPlass) {
-                System.out.println("✅ Billett " + billettkode + " opprettet og " +
+                System.out.println("Billett " + billettkode + "opprettet og " +
                         (betalMedEnGang ? "betalt" : "reservert"));
             } else {
-                System.out.println("❌ Kunne ikke opprette billett " + billettkode);
+                System.out.println("Kunne ikke opprette billett " + billettkode);
             }
         }
     }

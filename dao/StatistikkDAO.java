@@ -23,8 +23,8 @@ public class StatistikkDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                System.out.println("📊 Besøkende: " + rs.getInt("besok"));
-                System.out.println("🎟 Solgte billetter: " + rs.getInt("solgte"));
+                System.out.println("Besøkende: " + rs.getInt("besok"));
+                System.out.println("Solgte billetter: " + rs.getInt("solgte"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class StatistikkDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                System.out.println("📈 Snitt solgte billetter per visning: " + rs.getDouble("snitt"));
+                System.out.println("Snitt solgte billetter per visning: " + rs.getDouble("snitt"));
             }
         } catch (Exception e) {
             e.printStackTrace();

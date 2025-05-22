@@ -16,7 +16,7 @@ public class BetjentMeny {
         PlassBillettDAO plassDAO = new PlassBillettDAO();
         BestillingService service = new BestillingService();
 
-        System.out.println("🎟 Velkommen til Kinobetjent-modul");
+        System.out.println("Velkommen til Kinobetjent-modul");
 
         int valg;
         do {
@@ -27,7 +27,7 @@ public class BetjentMeny {
             System.out.println("0. Logg ut");
             System.out.print("Velg et alternativ: ");
             while (!scanner.hasNextInt()) {
-                System.out.println("❌ Ugyldig inndata. Prøv igjen.");
+                System.out.println(" Ugyldig inndata. Prøv igjen.");
                 scanner.next(); // kast feil input
                 System.out.print("Velg et alternativ: ");
             }
@@ -40,15 +40,15 @@ public class BetjentMeny {
                     String kode = scanner.nextLine();
                     boolean ok = billettDAO.registrerBetaling(kode);
                     if (ok) {
-                        System.out.println("✅ Betaling registrert.");
+                        System.out.println("Betaling registrert.");
                     } else {
-                        System.out.println("❌ Kunne ikke registrere betaling. Sjekk billettkode.");
+                        System.out.println("Kunne ikke registrere betaling. Sjekk billettkode.");
                     }
                 }
                 case 2 -> {
                     System.out.print("Oppgi visningsID: ");
                     while (!scanner.hasNextInt()) {
-                        System.out.println("❌ Må være et tall. Prøv igjen.");
+                        System.out.println("Må være et tall. Prøv igjen.");
                         scanner.next();
                         System.out.print("Oppgi visningsID: ");
                     }
@@ -57,11 +57,11 @@ public class BetjentMeny {
                     betjentController.slettUbetalteOgLogg(visningId);
                 }
                 case 3 -> {
-                    System.out.println("💳 Starter direktesalg...");
+                    System.out.println("Starter direktesalg...");
                     service.startBestilling(scanner, true); // true = betal nå
                 }
-                case 0 -> System.out.println("🔓 Logger ut...");
-                default -> System.out.println("❌ Ugyldig valg. Prøv igjen.");
+                case 0 -> System.out.println("Logger ut...");
+                default -> System.out.println("Ugyldig valg. Prøv igjen.");
             }
 
         } while (valg != 0);

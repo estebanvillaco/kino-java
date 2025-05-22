@@ -1,6 +1,6 @@
 package app;
 
-
+import dao.LoginDAO;
 import service.FilmService;
 import service.VisningService;
 import service.StatistikkService;
@@ -13,6 +13,7 @@ public class PlanleggerMeny {
         FilmService filmService = new FilmService();
         VisningService visningService = new VisningService();
         StatistikkService statistikkService = new StatistikkService();
+        LoginDAO loginDAO = new LoginDAO();  // Nytt
 
         int valg;
         do {
@@ -22,8 +23,14 @@ public class PlanleggerMeny {
             System.out.println("3. Endre eller slett visning");
             System.out.println("4. Generer statistikk for film");
             System.out.println("5. Generer statistikk for kinosal");
+            System.out.println("6. Opprett ny bruker");
+            System.out.println("7. Slett bruker");
             System.out.println("0. Logg ut");
             System.out.print("Velg et alternativ: ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Skriv inn et tall.");
+                scanner.next();
+            }
             valg = scanner.nextInt();
             scanner.nextLine(); // rydder buffer
 
@@ -38,7 +45,7 @@ public class PlanleggerMeny {
                     scanner.nextLine();
 
                     boolean suksess = filmService.registrerFilm(tittel, sjanger, lengde);
-                    System.out.println(suksess ? "✅ Film registrert." : "❌ Kunne ikke registrere film.");
+                    System.out.println(suksess ? "Film registrert." : " Kunne ikke registrere film.");
                 }
 
                 case 2 -> {
@@ -47,11 +54,16 @@ public class PlanleggerMeny {
                     System.out.print("Kinosalnummer: ");
                     int salNr = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.print("Starttidspunkt (yyyy-MM-dd HH:mm): ");
-                    String tidspunkt = scanner.nextLine();
+                    System.out.print("Dato (yyyy-MM-dd): ");
+                    String dato = scanner.nextLine();
+                    System.out.print("Starttid (HH:mm:ss): ");
+                    String tid = scanner.nextLine();
+                    System.out.print("Pris: ");
+                    int pris = scanner.nextInt();
+                    scanner.nextLine();
 
-                    boolean suksess = visningService.opprettVisning(filmId, salNr, tidspunkt);
-                    System.out.println(suksess ? "✅ Visning opprettet." : "❌ Feil ved oppretting.");
+                    boolean suksess = visningService.opprettVisning(filmId, salNr, dato, tid, pris);
+                    System.out.println(suksess ? "Visning opprettet." : " Feil ved oppretting.");
                 }
 
                 case 3 -> {
@@ -60,25 +72,25 @@ public class PlanleggerMeny {
                     scanner.nextLine();
 
                     if (!visningService.harSolgteBilletter(visningId)) {
-                        System.out.println("1. Endre visning");
+                        System.out.println("1. Endre visningstidspunkt");
                         System.out.println("2. Slett visning");
                         System.out.print("Velg: ");
                         int valgEndre = scanner.nextInt();
                         scanner.nextLine();
 
                         if (valgEndre == 1) {
-                            System.out.print("Nytt tidspunkt (yyyy-MM-dd HH:mm): ");
+                            System.out.print("Nytt starttidspunkt (HH:mm:ss): ");
                             String nyttTid = scanner.nextLine();
                             visningService.endreTidspunkt(visningId, nyttTid);
-                            System.out.println("✅ Tidspunkt oppdatert.");
+                            System.out.println("Tidspunkt oppdatert.");
                         } else if (valgEndre == 2) {
                             visningService.slettVisning(visningId);
-                            System.out.println("✅ Visning slettet.");
+                            System.out.println("Visning slettet.");
                         } else {
-                            System.out.println("❌ Ugyldig valg.");
+                            System.out.println("Ugyldig valg.");
                         }
                     } else {
-                        System.out.println("❌ Kan ikke endre/slette – det er allerede solgte billetter.");
+                        System.out.println("Kan ikke endre/slette – det er allerede solgte billetter.");
                     }
                 }
 
@@ -94,6 +106,29 @@ public class PlanleggerMeny {
                     int salNr = scanner.nextInt();
                     scanner.nextLine();
                     statistikkService.genererSalsStatistikk(salNr);
+                }
+
+                case 6 -> {
+                    System.out.print("Brukernavn: ");
+                    String nyBruker = scanner.nextLine();
+                    System.out.print("PIN-kode: ");
+                    String nyPin = scanner.nextLine();
+                    System.out.print("Rolle (betjent/planlegger): ");
+                    String rolle = scanner.nextLine().toLowerCase();
+
+                    if (rolle.equals("betjent") || rolle.equals("planlegger")) {
+                        boolean opprettet = loginDAO.opprettBruker(nyBruker, nyPin, rolle);
+                        System.out.println(opprettet ? "Bruker opprettet." : "Kunne ikke opprette bruker.");
+                    } else {
+                        System.out.println("Ugyldig rolle. Må være 'betjent' eller 'planlegger'.");
+                    }
+                }
+
+                case 7 -> {
+                    System.out.print("Brukernavn som skal slettes: ");
+                    String slett = scanner.nextLine();
+                    boolean slettet = loginDAO.slettBruker(slett);
+                    System.out.println(slettet ? " Bruker slettet." : " Kunne ikke slette bruker.");
                 }
 
                 case 0 -> System.out.println("Logger ut...");

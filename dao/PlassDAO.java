@@ -33,7 +33,7 @@ public class PlassDAO {
         return plasser;
     }
 
-    // 🔍 Henter KUN ledige plasser for en visning (ikke koblet til billett)
+    // Henter KUN ledige plasser for en visning (ikke koblet til billett)
     public List<Plass> hentLedigePlasser(int visningnr) {
         List<Plass> ledige = new ArrayList<>();
         String sql = """
