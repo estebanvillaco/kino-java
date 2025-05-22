@@ -61,7 +61,7 @@ public class Main {
                         System.out.print("Ny PIN: ");
                         String nyPin = scanner.nextLine();
                         if (loginDAO.oppdaterPin(user, nyPin)) {
-                            System.out.println(" PIN-kode oppdatert.");
+                            System.out.println("PIN-kode oppdatert.");
                         } else {
                             System.out.println("Kunne ikke oppdatere PIN.");
                         }
