@@ -1,4 +1,4 @@
-#  Kino-system – Oppsett med PostgreSQL
+#  Kino-system - Oppsett med PostgreSQL
 
 Dette prosjektet simulerer et kinosystem basert på eksamensoppgaven i Objektorientert Programmering. Følg stegene under for å sette opp databasen og kjøre programmet.
 
